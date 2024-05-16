@@ -1,0 +1,22 @@
+<ion-header class="ion-no-border"></ion-header>
+
+<ion-content [fullscreen]="true">
+  <div class="relative h-full">
+    <img
+      src="assets/imagenes/Portada.svg"
+      class="absolute inset-0 w-full h-full object-cover"
+    />
+    <div class="absolute bottom-0 left-0 right-0 mb-8 text-center">
+      <button
+        class="bg-[#01AE67] text-white font-bold py-3 px-[90px] rounded-lg mt-2"
+        (click)="login()"
+      >
+        Iniciar sesión
+      </button>
+      <p class="mt-3 text-white text-sm font-light">
+        No tienes una cuenta todavia?
+        <a (click)="registro()" class="font-bold ml-2 cursor-pointer">Registrate</a>
+      </p>
+    </div>
+  </div>
+</ion-content>
