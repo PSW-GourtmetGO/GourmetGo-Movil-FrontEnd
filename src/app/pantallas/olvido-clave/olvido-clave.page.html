@@ -1,13 +1,82 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>olvidoClave</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-header class="ion-no-border"></ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">olvidoClave</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <div class="h-full grid grid-rows-2">
+    <!-- Primera fila: Imagen -->
+    <div class="row-span-1 bg-white">
+      <img
+        src="assets/imagenes/Portada.svg"
+        class="w-full h-full object-cover"
+      />
+    </div>
+    <!-- Segunda fila: Contenido blanco con campos y botones -->
+    <div class="row-start-2 bg-white text-black">
+      <div class="w-full h-auto grid grid-cols-2 row-auto">
+        <div
+          class="col-start-1 col-span-2 row-start-1 flex items-start justify-center mt-4"
+        >
+          <div class="w-[20%]">
+            <img src="assets/imagenes/Logo.svg" class="rounded-full" alt="" />
+          </div>
+        </div>
+        <div class="row-start-2 col-span-2 grid justify-items-center mt-2 w-4/5 mx-auto">
+          <h1 class="font-bold text-xl">¿Olvidaste tu contraseña?</h1>
+          <a class="text-sm text-black text-center cursor-pointer mt-2">Ingresa tu correo electrónico y te enviaremos un enlace para restablecer tu contraseña.</a>
+        </div>
+        
+        
+        
+        
+        <div class="row-start-3 col-start-1 col-span-2 mx-6 mt-2">
+          <form action="">
+            <div class="w-full max-w-md mx-auto">
+              <!-- CORREO -->
+              <div class="mt-4 relative">
+                <input
+                  type="email"
+                  placeholder="Correo electrónico"
+                  class="w-full border rounded-md px-3 py-2"
+                />
+                <span class="absolute inset-y-0 right-0 flex items-center pr-3">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="#111"
+                    stroke-width="1"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  >
+                    <path
+                      d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"
+                    ></path>
+                    <polyline points="22,6 12,13 2,6"></polyline>
+                  </svg>
+                </span>
+              </div>
+              <!-- BOTON INICIAR SESION -->
+              <button
+                type="submit"
+                class="w-full bg-[#01AE67] text-white font-bold py-2 px-4 rounded-lg mt-4"
+              >
+              Restablecer Contraseña
+              </button>
+            </div>
+          </form>
+        </div>
+        <div
+          class="row-start-4 col-start-1 col-span-2 mt-2 flex justify-center"
+        >
+          <p class="text-sm text-gray-600">
+            No tienes una cuenta todavia ?
+            <a (click)="registro()" class="text-sm text-black font-bold cursor-pointer ml-2"
+              >Regístrate</a
+            >
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
 </ion-content>
