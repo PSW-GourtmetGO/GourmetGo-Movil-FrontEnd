@@ -28,7 +28,7 @@
         
         
         <div class="row-start-3 col-start-1 col-span-2 mx-6 mt-2">
-          <form action="">
+          <form (ngSubmit)="onSubmit()">
             <div class="w-full max-w-md mx-auto">
               <!-- CORREO -->
               <div class="mt-4 relative">
@@ -36,6 +36,7 @@
                   type="email"
                   placeholder="Correo electrónico"
                   class="w-full border rounded-md px-3 py-2"
+                  [(ngModel)]="correoText" name = "correoText"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
                   <svg

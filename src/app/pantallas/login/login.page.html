@@ -23,7 +23,7 @@
           <h1 class="font-bold text-xl">Bienvenido de nuevo</h1>
         </div>
         <div class="row-start-3 col-start-1 col-span-2 mx-6 mt-2">
-          <form action="">
+          <form (ngSubmit)="onSubmit()">
             <div class="w-full max-w-md mx-auto">
               <!-- CORREO -->
               <div class="mt-4 relative">
@@ -31,6 +31,7 @@
                   type="email"
                   placeholder="Correo electrónico"
                   class="w-full border rounded-md px-3 py-2"
+                  [(ngModel)]="correoText" name = "correoText"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
                   <svg
@@ -57,6 +58,7 @@
                   type="password"
                   placeholder="Contraseña"
                   class="w-full border rounded-md px-3 py-2 pr-10"
+                  [(ngModel)]="contraseniaText" name = "contraseniaText"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
                   <svg
@@ -100,9 +102,8 @@
         >
           <p class="text-sm text-gray-600">
             No tienes una cuenta todavia ?
-            <a class="text-sm text-black font-bold cursor-pointer ml-2"
-              >Regístrate</a
-            >
+            <a class="text-sm text-black font-bold cursor-pointer ml-2" (click)="registrar()"
+              >Regístrate</a>
           </p>
         </div>
       </div>
