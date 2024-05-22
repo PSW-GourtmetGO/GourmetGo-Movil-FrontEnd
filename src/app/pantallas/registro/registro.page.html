@@ -8,7 +8,7 @@
           <a (click)="login()" class="text-sm text-black font-bold cursor-pointer mr-2"><img src="../../../assets/imagenes/flecha-atras.svg" alt=""></a><h1 class="font-bold text-xl">Registro de clientes <img src="assets/imagenes/Logo.svg" class="rounded-full w-8 inline-block" alt="" /></h1>
         </div>
         <div class="row-start-2 col-start-1 col-span-2 mx-6 mt-2">
-          <form action="">
+          <form (ngSubmit)="onSubmit()">
             <div class="w-full max-w-md mx-auto">
               <!-- CEDULA -->
               <div class="mt-6 mb-2 relative">
@@ -17,6 +17,7 @@
                   placeholder="Cedula"
                   class="w-full border-b rounded-md px-3 py-2"
                   pattern="[0-9]*"
+                  [(ngModel)]="cedulaText" name="cedulaText"
                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -30,6 +31,7 @@
                   placeholder="Nombre"
                   class="w-full border rounded-md px-3 py-2"
                   pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]*"
+                  [(ngModel)]="nombreText" name="nombreText"
                   oninput="this.value = this.value.replace(/[^A-Za-zÁáÉéÍíÓóÚúÑñ\s]/g, '')"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -43,6 +45,7 @@
                   placeholder="Apellido"
                   class="w-full border rounded-md px-3 py-2"
                   pattern="[A-Za-zÁáÉéÍíÓóÚúÑñ\s]*"
+                  [(ngModel)]="apellidoText" name="apellidoText"
                   oninput="this.value = this.value.replace(/[^A-Za-zÁáÉéÍíÓóÚúÑñ\s]/g, '')"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -54,6 +57,7 @@
                 <input
                   type="date"
                   placeholder="Fecha de Nacimiento"
+                  [(ngModel)]="fecha_nacimientoText" name = "fecha_nacimientoText"
                   class="w-full border rounded-md px-3 py-2"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -65,6 +69,7 @@
                 <input
                   type="text"
                   placeholder="Dirección"
+                  [(ngModel)]="direccionText" name="direccionText"
                   class="w-full border rounded-md px-3 py-2"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -77,6 +82,7 @@
                   type="text"
                   placeholder="Telefono"
                   class="w-full border rounded-md px-3 py-2"
+                  [(ngModel)]="telefonoText" name = "telefonoText"
                   pattern="[0-9]*"
                   oninput="this.value = this.value.replace(/[^0-9]/g, '')"
                 />
@@ -89,6 +95,7 @@
                 <input
                   type="email"
                   placeholder="Correo electrónico"
+                  [(ngModel)]="correoText" name = "correoText"
                   class="w-full border rounded-md px-3 py-2"
                 />
                 <span class="absolute inset-y-0 right-0 flex items-center pr-3">
@@ -114,6 +121,7 @@
               <div class="mt-6 mb-2 relative">
                 <input
                   type="password"
+                  [(ngModel)]="contraseniaText" name="contraseniaText"
                   placeholder="Contraseña"
                   class="w-full border rounded-md px-3 py-2 pr-10"
                 />
