@@ -1,37 +1,67 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { PrincipalService } from 'src/app/services/principal/principal.service';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-registro',
   templateUrl: './registro.page.html',
   styleUrls: ['./registro.page.scss'],
 })
-export class RegistroPage {
+export class RegistroPage implements OnInit {
 
-  cedulaText : string = ''
-  nombreText : string = ''
-  apellidoText : string = ''
+  cedulaText: string = '';
+  nombreText: string = '';
+  apellidoText: string = '';
   fecha_nacimientoText: Date | null = null;
-  direccionText : string = ''
-  telefonoText :string = ''
-  correoText :string = ''
-  contraseniaText :string = ''
+  direccionText: string = '';
+  telefonoText: string = '';
+  correoText: string = '';
+  contraseniaText: string = '';
 
+  constructor(
+    private router: Router,
+    private serviciosIniciales: PrincipalService,
+    private toastController: ToastController
+  ) {}
 
-  constructor(private router: Router) { }
+  ngOnInit(): void {}
+
   login() {
     this.router.navigate(['/login']);
   }
 
+  async presentToast(message: string, color: string = 'success') {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000,
+      position: 'bottom',
+      color: color
+    });
+    toast.present();
+  }
+
   onSubmit() {
-    console.log('Información guardada:');
-    console.log('Cédula:', this.cedulaText);
-    console.log('Nombre:', this.nombreText);
-    console.log('Apellido:', this.apellidoText);
-    console.log('Fecha de Nacimiento:', this.fecha_nacimientoText);
-    console.log('Dirección:', this.direccionText);
-    console.log('Teléfono:', this.telefonoText);
-    console.log('Correo:', this.correoText);
-    console.log('Contraseña:', this.contraseniaText);
+    const cliente = {
+      cedula: this.cedulaText,
+      nombre: this.nombreText,
+      apellido: this.apellidoText,
+      fecha_nacimiento: this.fecha_nacimientoText,
+      direccion: this.direccionText,
+      telefono: this.telefonoText,
+      correo: this.correoText,
+      contrasenia: this.contraseniaText
+    };
+
+    this.serviciosIniciales.register(cliente).subscribe(response => {
+      if (response.success) {
+        this.presentToast('Usuario creado');
+        this.router.navigate(['/login'])
+      } else {
+        this.presentToast('Error al crear el usuario', 'danger');
+      }
+    }, error => {
+      this.presentToast('Error al crear el usuario', 'danger');
+    });
   }
 }
