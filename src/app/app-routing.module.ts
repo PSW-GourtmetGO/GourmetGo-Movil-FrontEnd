@@ -40,6 +40,11 @@ const routes: Routes = [
         (m) => m.OlvidoClavePageModule
       ),
   },
+  {
+    path: 'inicio',
+    loadChildren: () => import('./pantallas/tabs/tabs.module').then( m => m.TabsPageModule)
+  }
+
 ];
 
 @NgModule({
