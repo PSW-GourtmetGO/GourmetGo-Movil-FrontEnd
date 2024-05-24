@@ -9,10 +9,11 @@
           class="w-[70%] bg-[#274C5B] text-white rounded-lg"
           type="text"
           placeholder="Ingresa el nombre del restaurante"
+          [(ngModel)]="restauranteText" name = "restauranteText"
         />
       </div>
       <div class="row-start-1 col-start-2 flex items-end justify-end">
-        <button class="py-2 px-5 bg-[#01AE67] rounded-lg font-bold">Buscar</button>
+        <button class="py-2 px-5 bg-[#01AE67] rounded-lg font-bold" (click)="buscar()">Buscar</button>
       </div>
       <ng-container *ngFor="let restaurante of restaurantes">
         <div class="w-full col-span-2">
@@ -32,7 +33,7 @@
               <h2 class="text-md font-bold text-gray-800">
                 {{ restaurante.nombre }}
               </h2>
-              <p class="text-gray-600 mt-2">{{ restaurante.ubicacion }}</p>
+              <p class="text-gray-600 mt-2">{{ restaurante.direccion }}</p>
               <p class="text-black text-sm mt-2 text-center font-bold">
                 {{ restaurante.horario }}
               </p>
