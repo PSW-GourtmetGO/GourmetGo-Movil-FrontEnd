@@ -21,6 +21,13 @@ const routes: Routes = [
           import('../carrito/carrito.module').then((m) => m.CarritoPageModule),
       },
       {
+        path: 'historial',
+        loadChildren: () =>
+          import('../historial/historial.module').then(
+            (m) => m.HistorialPageModule
+          ),
+      },
+      {
         path: '',
         redirectTo: 'principal',
         pathMatch: 'full',
