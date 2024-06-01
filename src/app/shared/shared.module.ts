@@ -4,9 +4,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
+import { ToolbarpagosComponent } from './componentes/toolbarpagos/toolbarpagos.component';
 
 @NgModule({
-  declarations: [ToolbarComponent],
+  declarations: [ToolbarComponent, ToolbarpagosComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -14,6 +15,6 @@ import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
     IonicModule,
     RouterModule,
   ],
-  exports: [ToolbarComponent],
+  exports: [ToolbarComponent, ToolbarpagosComponent],
 })
 export class SharedModule {}

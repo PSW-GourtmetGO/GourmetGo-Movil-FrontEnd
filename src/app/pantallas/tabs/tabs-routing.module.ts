@@ -32,6 +32,12 @@ const routes: Routes = [
         redirectTo: 'principal',
         pathMatch: 'full',
       },
+      {
+        path: 'pagos',
+        loadChildren: () =>
+          import('../pagos/pagos.module').then((m) => m.PagosPageModule),
+      }
+
     ],
   },
 ];
