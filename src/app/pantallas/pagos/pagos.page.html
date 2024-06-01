@@ -1,0 +1,61 @@
+<app-toolbarpagos backButton="true"></app-toolbarpagos>
+<ion-content>
+    <div class="w-full h-full bg-[#D4D4D4] overflow-y-auto">
+        <div class="grid grid-cols-2 gap-5 w-full h-auto p-4">
+            <ng-container *ngFor="let restaurante of restaurantes">
+                <div class="w-full col-span-2">
+                    <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%]">
+                        <!-- Imagen -->
+                        <div class="w-1/3 py-6 px-3">
+                            <img [src]="restaurante.imagen" alt="Restaurante"
+                                class="w-full h-full object-cover rounded-lg" />
+                        </div>
+                        <!-- Contenido -->
+                        <div class="w-2/3 p-4 flex flex-col justify-center">
+                            <h2 class="text-md font-bold text-gray-800">
+                                {{ restaurante.nombre }}
+                            </h2>
+                            <p class="text-gray-600 mt-2">{{ restaurante.direccion }}</p>
+                            <p class="text-black text-sm mt-2 text-center font-bold">
+                                {{ restaurante.horario }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            <!-- Información del Pedido -->
+            <div class="w-full col-span-2">
+                <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%]">
+                    <div class="w-full p-4 flex flex-col justify-center items-start">
+                        <h2 class="text-md font-bold text-gray-800">
+                            Número de Pedido
+                        </h2>
+                        <p class="text-black text-lg mt-2 text-center font-bold">
+                            {{ numeroPedido }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <!-- Total a Pagar -->
+            <div class="w-full col-span-2">
+                <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%]">
+                    <div class="w-full p-4 flex flex-col justify-center items-start">
+                        <h2 class="text-md font-bold text-gray-800">
+                            Total a Pagar
+                        </h2>
+                        <p class="text-black text-lg mt-2 text-center font-bold">
+                            {{ totalPagar | currency }}
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="w-full p-4 flex justify-center">
+            <button
+                class="mt-4 bg-[#00af66] text-white font-semibold px-6 py-3 rounded-lg flex items-center space-x-2 shadow-lg hover:bg-[#008f56] focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105">
+                <ion-icon name="logo-paypal"></ion-icon>
+                <span>PayPal</span>
+            </button>
+        </div>
+    </div>
+</ion-content>
