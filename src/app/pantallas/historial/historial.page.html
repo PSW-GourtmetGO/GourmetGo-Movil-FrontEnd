@@ -1,1 +1,45 @@
 <app-toolbar></app-toolbar>
+<ion-content>
+    <div class="w-full h-full bg-[#D4D4D4] overflow-y-auto">
+        <div class="grid grid-cols-2 gap-5 w-full h-auto p-4">
+            <ng-container *ngFor="let restaurante of restaurantes">
+                <div class="w-full col-span-2">
+                    <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%] flex-col">
+                        <!-- Estado Cuenta y Fecha -->
+                        <div class="flex items-center justify-between px-4 py-2">
+                            <label class="text-sm font-bold text-[#00af66]">Estado Compra</label>
+                            <label [style.backgroundColor]="getColorByEstado('Pendiente')"
+                                class="text-sm text-black font-bold py-2 px-3 rounded-lg">Pendiente</label>
+                        </div>
+
+                        <!-- Imagen y Contenido -->
+                        <div class="w-full flex py-6 px-3">
+                            <img [src]="restaurante.imagen" alt="Restaurante"
+                                class="w-1/3 h-full object-cover rounded-lg" />
+                            <!-- Contenido -->
+                            <div class="w-2/3 p-4 flex flex-col justify-center">
+                                <h2 class="text-md font-bold text-gray-800">
+                                    {{ restaurante.nombre }}
+                                </h2>
+                                <p class="text-gray-600 mt-2">$ {{ restaurante.precioTotal }}</p>
+                                <p class="text-black text-sm mt-2font-bold">
+                                    {{ restaurante.cantidad }} Articulos Agregados
+                                </p>
+                            </div>
+                        </div>
+                        <!-- Botones Ver Compra y Ver Código -->
+                        <div class="w-full flex justify-around p-3">
+                            <button class="bg-[#EFD372] text-black font-semibold px-8 py-3 rounded-lg shadow-lg ">
+                                Ver Compra
+                            </button>
+                            <button class="bg-[#FF495C] text-white font-semibold px-8 py-3 rounded-lg shadow-lg">
+                                Ver Código
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </ng-container>
+            
+        </div>
+    </div>
+</ion-content>
