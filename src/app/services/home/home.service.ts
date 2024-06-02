@@ -8,13 +8,16 @@ import { Observable } from 'rxjs';
 export class HomeService {
 
   url = 'http://localhost:4500/api/Movil/general'
-  constructor(private http:HttpClient) {
-   }
-
-  obtenerRestaurantes():Observable<any>{
-    return this.http.get(this.url+"/restaurantes")
+  constructor(private http: HttpClient) {
   }
-  obtenerRestaurante(entidad:any):Observable<any>{
-    return this.http.post(this.url+"/restaurantes",entidad)
+
+  obtenerRestaurantes(): Observable<any> {
+    return this.http.get(this.url + "/restaurantes")
+  }
+  obtenerRestaurante(entidad: any): Observable<any> {
+    return this.http.post(this.url + "/restaurantes", entidad)
+  }
+  obtenerPedido(): Observable<any> {
+    return this.http.get(this.url + "/pedidos")
   }
 }
