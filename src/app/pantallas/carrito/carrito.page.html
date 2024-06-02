@@ -1,1 +1,65 @@
 <app-toolbar></app-toolbar>
+<ion-content>
+  <div class="w-full h-full bg-[#D4D4D4] overflow-y-auto">
+    <div class="grid grid-cols-2 gap-5 w-full h-auto p-4">
+      <ng-container *ngFor="let restaurante of restaurantes">
+        <div class="bg-white rounded-lg shadow-lg col-span-2">
+          <h1 class="w-full text-center m-2 font-semibold text-[#172b4d]">Carrito de Compras</h1>
+        </div>
+        <div class="w-full col-span-2">
+          <div class="bg-white rounded-lg shadow-lg overflow-hidden h-[100%]">
+            <!-- Restaurante -->
+            <div class="w-full p-4 flex justify-between items-center">
+              <p class="text-xs font-semibold text-[#078a5e]">
+                {{ restaurante.nombre }}
+              </p>
+              <p class="text-[#7a869a] text-xs font-light text-right">
+                {{ currentDate }}
+              </p>
+            </div>
+            <div class="grid grid-cols-4 p-2">
+              <ng-container *ngFor="let producto of productosSeleccionados; let i = index">
+                <!-- Imagen -->
+                <div class="col-start-1">
+                  <img [src]="producto.imagen" alt="Restaurante" class="w-full h-full object-cover rounded-lg" />
+                </div>
+                <!-- Info -->
+                <div class="px-2 col-start-2 col-span-2">
+                  <p class="text-sm font-semibold text-black">
+                    {{ producto.nombre }}
+                  </p>
+                  <p class="text-xs font-semibold text-[#f2b252]">
+                    {{ producto.precio }}
+                  </p>
+                </div>
+                <!-- Cantidad y botones -->
+                <div class="w-full col-start-4 flex items-center justify-center space-x-2">
+                  <button (click)="disminuirCantidad(i)" class="text-white bg-[#00af66] rounded-full p-2">
+                    -
+                  </button>
+                  <p class="text-black text-lg text-center font-bold">
+                    {{ producto.cantidad }}
+                  </p>
+                  <button (click)="incrementarCantidad(i)" class="text-white bg-[#00af66] rounded-full p-2">
+                    +
+                  </button>
+                </div>
+                <div class="w-full col-start-4 flex items-center justify-center space-x-2">
+                  <button (click)="eliminarProducto(i)" class="text-white bg-[#fc4c4e] rounded-full p-2">
+                    Eliminar
+                  </button>
+                </div>
+              </ng-container>
+            </div>
+            <div class="w-full p-4 justify-center">
+              <button
+              (click)="irAPago()" class="w-full justify-center mt-4 bg-[#00af66] text-white font-semibold px-6 py-3 rounded-lg flex items-center space-x-2 shadow-lg hover:bg-[#008f56] focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105">
+                <span>Realizar Pago</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ion-content>

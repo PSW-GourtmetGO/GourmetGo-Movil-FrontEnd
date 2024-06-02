@@ -1,0 +1,60 @@
+<app-toolbarmenu backButton="true"></app-toolbarmenu>
+<ion-content>
+    <div class="w-full h-full bg-[#D4D4D4] overflow-y-auto">
+        <div class="grid grid-cols-2 gap-5 w-full h-auto p-4">
+            <div class="w-full col-span-2">
+                <div class="grid grid-cols-5 bg-white rounded-lg shadow-lg overflow-hidden h-[100%]">
+                    <div class="col-start-1 col-span-2 py-6 px-3">
+                        <img [src]="restauranteImagen" alt="Restaurante"
+                            class="w-full h-full object-cover rounded-lg" />
+                    </div>
+                    <div class="col-start-3 col-span-3 items-center justify-center text-center">
+                        <div class="text-xs font-semibold text-[#078a5e] mt-[10%]">
+                            <h1>{{restauranteNombre}}</h1>
+                        </div>
+                        <!-- Imagen -->
+                        <div class="flex items-start mt-[5%]">
+                            <input class="w-[95%] bg-[#274C5B] text-white rounded-lg" type="text"
+                                placeholder="Buscar Comida" [(ngModel)]="platoNombre" name="platoNombre" />
+                        </div>                        
+                        <!-- Contenido -->
+                        <div class="flex items-end mt-[5%]">
+                            <button class="py-2 px-5 bg-[#01AE67] rounded-lg font-bold w-[95%]"
+                                (click)="buscar()">Buscar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <ng-container *ngFor="let categoria of categorias">
+                <!-- Categoria -->
+                <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%] col-span-2">
+                    <h2 class="w-full text-center text-md font-bold text-gray-800 p-4">
+                        {{categoria.nombre}}
+                    </h2>
+                </div>
+                <!-- Menu -->
+                <ng-container *ngFor="let producto of productos">
+                    <div *ngIf="producto.idCategoria === categoria.id" class="w-full">
+                        <!-- Producto HTML -->
+                        <div (click)="irACarrito(producto)" class="bg-white rounded-lg shadow-lg grid grid-rows-4 overflow-hidden h-[100%] cursor-pointer">
+                            <!-- Imagen -->
+                            <div class="row-start-1 row-span-3 py-6 px-3">
+                                <img [src]="producto.imagen" alt="Producto"
+                                    class="w-full h-full object-cover rounded-lg" />
+                            </div>
+                            <!-- Contenido -->
+                            <div class="row-start-4 w-2/3 p-4 flex flex-col justify-center">
+                                <h2 class="text-md font-bold text-gray-800">
+                                    {{ producto.nombre }}
+                                </h2>
+                                <h2 class="text-md font-bold text-[#b3b3b3]">
+                                    {{ producto.precio }}
+                                </h2>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </ng-container>
+        </div>
+    </div>
+</ion-content>

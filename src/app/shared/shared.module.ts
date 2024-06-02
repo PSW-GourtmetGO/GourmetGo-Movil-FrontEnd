@@ -5,9 +5,10 @@ import { IonicModule } from '@ionic/angular';
 import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
 import { ToolbarpagosComponent } from './componentes/toolbarpagos/toolbarpagos.component';
+import { ToolbarmenuComponent } from './componentes/toolbarmenu/toolbarmenu.component';
 
 @NgModule({
-  declarations: [ToolbarComponent, ToolbarpagosComponent],
+  declarations: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -15,6 +16,6 @@ import { ToolbarpagosComponent } from './componentes/toolbarpagos/toolbarpagos.c
     IonicModule,
     RouterModule,
   ],
-  exports: [ToolbarComponent, ToolbarpagosComponent],
+  exports: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent],
 })
 export class SharedModule {}
