@@ -1,0 +1,36 @@
+<header class="bg-[#274C5B] text-white">
+  <div class="flex items-center justify-between px-4 py-2">
+    <div class="flex items-center">
+      <!-- Back Button -->
+      <button *ngIf="backButton" class="text-white flex items-center">
+        <ion-icon name="arrow-back-outline" (click)="irRestaurantes()"></ion-icon>
+        <span class="ml-2">Volver</span>
+      </button>
+
+      <!-- Dismiss Modal -->
+      <button *ngIf="isModal" (click)="dismissModal()" class="text-white ml-4">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </button>
+
+      <button *ngIf="showMenu" class="text-white ml-4">
+        <ion-icon name="menu-outline"></ion-icon>
+      </button>
+    </div>
+
+    <h1 class="text-2xl font-bold text-center flex-grow">{{ title }}</h1>
+
+    <div class="flex items-center">
+      <!-- Carrito Button -->
+      <button *ngIf="cartButton && !admin" class="text-white">
+        <ion-icon class="cart-icon text-white" name="cart-outline"></ion-icon>
+      </button>
+    </div>
+  </div>
+
+  <div class="flex items-center justify-center px-4 py-2 text-center">
+    <div class="w-[10%] mr-3">
+      <img class="rounded-full" src="../../../../assets/imagenes/Logo.svg" alt="" />
+    </div>
+    <strong class="text-lg">GOURMETGO</strong>
+  </div>
+</header>

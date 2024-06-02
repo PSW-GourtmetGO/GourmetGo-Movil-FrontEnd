@@ -9,9 +9,11 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./principal.page.scss'],
 })
 export class PrincipalPage {
-  constructor(private router: Router,private serviciosGenerales:HomeService,private toastController: ToastController) {}
+  constructor(private router: Router,
+    private serviciosGenerales: HomeService,
+    private toastController: ToastController) { }
 
-  restauranteText:string = ''
+  restauranteText: string = ''
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
@@ -35,8 +37,8 @@ export class PrincipalPage {
     });
   }
 
-  buscar():void{
-    const entidad = {nombre:this.restauranteText}
+  buscar(): void {
+    const entidad = { nombre: this.restauranteText }
     this.serviciosGenerales.obtenerRestaurante(entidad).subscribe(response => {
       if (response.success) {
         this.restaurantes = response.restaurantes
@@ -56,4 +58,13 @@ export class PrincipalPage {
       horario: 'Lunes a Domingo 8:00 - 22:00',
     }
   ];
+
+  irAMenu(restaurante: any) {
+    this.router.navigate(['/inicio/principal/menu'], {
+      queryParams: {
+        nombre: restaurante.nombre,
+        imagen: restaurante.imagen
+      }
+    });
+  }
 }

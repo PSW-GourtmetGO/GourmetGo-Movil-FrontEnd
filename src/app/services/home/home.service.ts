@@ -20,4 +20,7 @@ export class HomeService {
   obtenerPedido(): Observable<any> {
     return this.http.get(this.url + "/pedidos")
   }
+  obtenerPlato(entidad: any): Observable<any> {
+    return this.http.post(this.url + "/plato", entidad)
+  }
 }

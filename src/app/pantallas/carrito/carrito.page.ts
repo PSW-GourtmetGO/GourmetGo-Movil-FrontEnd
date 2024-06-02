@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from 'src/app/services/home/home.service';
 import { ToastController } from '@ionic/angular';
 
@@ -10,12 +10,34 @@ import { ToastController } from '@ionic/angular';
 })
 export class CarritoPage implements OnInit {
 
-  cantidad = 0;
+  cantidad = 1;
   numeroPedido = 0;
   restauranteText: string = '';
   currentDate: string = '';
+  productosSeleccionados: any[] = [];
 
-  constructor(private router: Router, private serviciosGenerales: HomeService, private toastController: ToastController) {}
+  restaurantes = [
+    {
+      nombre: 'MEDIA NOCHE RESTAURANT',
+      direccion: 'Ambato, ciudadela presidencial',
+      imagen: '../../../assets/imagenes/negocio.png',
+      horario: 'Lunes a Domingo 8:00 - 22:00',
+    }
+  ];
+
+  pedidos = [
+    {
+      nombre: 'GuatiPollo',
+      hora: '10:00',
+      precio: '$40',
+      items: '2'
+    }
+  ]
+
+  constructor(private route: ActivatedRoute,
+    private router: Router,
+    private serviciosGenerales: HomeService,
+    private toastController: ToastController) { }
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
@@ -28,7 +50,17 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.currentDate = this.formatDate(new Date()); // Inicializa la fecha actual
+    this.route.queryParams.subscribe(params => {
+      const nuevoProducto = {
+        nombre: params['nombre'],
+        imagen: params['imagen'],
+        precio: params['precio'],
+        cantidad: 1
+      };
+      this.agregarProducto(nuevoProducto);
+    });
+
+    this.currentDate = this.formatDate(new Date());
 
     this.serviciosGenerales.obtenerPedido().subscribe(response => {
       if (response.success) {
@@ -51,32 +83,27 @@ export class CarritoPage implements OnInit {
     });
   }
 
-  restaurantes = [
-    {
-      nombre: 'MEDIA NOCHE RESTAURANT',
-      direccion: 'Ambato, ciudadela presidencial',
-      imagen: '../../../assets/imagenes/negocio.png',
-      horario: 'Lunes a Domingo 8:00 - 22:00',
+  agregarProducto(producto: any) {
+    const index = this.productosSeleccionados.findIndex(p => p.nombre === producto.nombre);
+    if (index !== -1) {
+      this.productosSeleccionados[index].cantidad++;
+    } else {
+      this.productosSeleccionados.push(producto);
     }
-  ];
-
-  pedidos = [
-    {
-      nombre: 'GuatiPollo',
-      hora: '10:00',
-      precio: '$40',
-      items: '2'
-    }
-  ]
-
-  incrementarCantidad() {
-    this.cantidad++;
   }
 
-  disminuirCantidad() {
-    if (this.cantidad > 0) {
-      this.cantidad--;
+  incrementarCantidad(index: number) {
+    this.productosSeleccionados[index].cantidad++;
+  }
+
+  disminuirCantidad(index: number) {
+    if (this.productosSeleccionados[index].cantidad > 1) {
+      this.productosSeleccionados[index].cantidad--;
     }
+  }
+
+  eliminarProducto(index: number) {
+    this.productosSeleccionados.splice(index, 1);
   }
 
   formatDate(date: Date): string {
@@ -90,4 +117,8 @@ export class CarritoPage implements OnInit {
 
     return `${dayName}, ${day} ${month} ${year}`;
   }
+
+  irAPago() {
+    this.router.navigate(['/inicio/pagos']);
+}
 }
