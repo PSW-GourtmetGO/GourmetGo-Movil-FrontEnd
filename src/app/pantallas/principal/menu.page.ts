@@ -12,6 +12,7 @@ export class MenuPage implements OnInit {
 
     restauranteNombre: string = ''
     restauranteImagen: string = ''
+    restauranteId: number = 0
     platoNombre: string = ''
 
     platos = [
@@ -69,6 +70,7 @@ export class MenuPage implements OnInit {
         this.route.queryParams.subscribe(params => {
             this.restauranteNombre = params['nombre'];
             this.restauranteImagen = params['imagen']
+            this.restauranteId = params['id']
         });
     }
 

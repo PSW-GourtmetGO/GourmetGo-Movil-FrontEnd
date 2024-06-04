@@ -43,6 +43,8 @@ export class LoginPage {
     this.serviciosIniciales.login(cliente).subscribe(response => {
       if (response.success) {
         this.presentToast('Bienvenido');
+        localStorage.setItem('id', response.clienteData.id);
+        this.router.navigate(['/inicio']);
       } else {
         this.presentToast('Credenciales incorrectas', 'danger');
       }

@@ -29,6 +29,7 @@ export class PrincipalPage {
     this.serviciosGenerales.obtenerRestaurantes().subscribe(response => {
       if (response.success) {
         this.restaurantes = response.restaurantes
+        console.log(this.restaurantes)
       } else {
         this.presentToast('Hubo un problema con el servidor', 'danger');
       }
@@ -63,7 +64,8 @@ export class PrincipalPage {
     this.router.navigate(['/inicio/principal/menu'], {
       queryParams: {
         nombre: restaurante.nombre,
-        imagen: restaurante.imagen
+        imagen: restaurante.imagen,
+        id: restaurante.id
       }
     });
   }
