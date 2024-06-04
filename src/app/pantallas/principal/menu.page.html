@@ -34,12 +34,12 @@
                 </div>
                 <!-- Menu -->
                 <ng-container *ngFor="let producto of productos">
-                    <div *ngIf="producto.idCategoria === categoria.id" class="w-full">
+                    <div *ngIf="producto.categoria_id === categoria.id" class="w-full">
                         <!-- Producto HTML -->
                         <div (click)="irACarrito(producto)" class="bg-white rounded-lg shadow-lg grid grid-rows-4 overflow-hidden h-[100%] cursor-pointer">
                             <!-- Imagen -->
                             <div class="row-start-1 row-span-3 py-6 px-3">
-                                <img [src]="producto.imagen" alt="Producto"
+                                <img [src]="producto.imagen === null ? 'https://firebasestorage.googleapis.com/v0/b/gourmetgo-firebase.appspot.com/o/Default%2FnoImagen.jpg?alt=media&token=3ee7f0de-f7f8-48b3-897f-cbb93a4b9872' : producto.imagen"
                                     class="w-full h-full object-cover rounded-lg" />
                             </div>
                             <!-- Contenido -->

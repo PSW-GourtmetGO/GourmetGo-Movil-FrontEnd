@@ -15,14 +15,6 @@ export class MenuPage implements OnInit {
     restauranteId: number = 0
     platoNombre: string = ''
 
-    platos = [
-        {
-            nombre: 'Papipollo',
-            imagen: '../../../assets/imagenes/bebida.png',
-            precio: '$2.50',
-        }
-    ]
-
     categorias = [
         {
             id: 1,
@@ -41,13 +33,13 @@ export class MenuPage implements OnInit {
             nombre: 'Té Verde',
             imagen: '../../../assets/imagenes/bebida.png',
             precio: '$1.00',
-            idCategoria: 2
+            categoria_id: 2
         },
         {
             nombre: 'PapiPollo',
             imagen: '../../../assets/imagenes/bebida.png',
             precio: '$5.00',
-            idCategoria: 1
+            categoria_id: 1
         }
     ]
 
@@ -71,14 +63,20 @@ export class MenuPage implements OnInit {
             this.restauranteNombre = params['nombre'];
             this.restauranteImagen = params['imagen']
             this.restauranteId = params['id']
+            this.serviciosGenerales.obtenerCategoriasRestaurante(this.restauranteId).subscribe(data=>{
+                this.categorias = data.restaurantes
+                this.serviciosGenerales.obtenerPlatosRestaurante(this.restauranteId).subscribe(data=>{
+                    this.productos = data.restaurantes
+                })
+            })
         });
     }
 
     buscar(): void {
-        const entidad = { nombre: this.platoNombre }
-        this.serviciosGenerales.obtenerPlato(entidad).subscribe(response => {
+        const entidad = { plato: this.platoNombre,restaurante: this.restauranteId }
+        this.serviciosGenerales.obtenerPlatosRestauranteFiltro(entidad).subscribe(response => {
             if (response.success) {
-                this.platos = response.restaurantes
+                this.productos = response.restaurantes
             } else {
                 this.presentToast('Hubo un problema con el servidor', 'danger');
             }
