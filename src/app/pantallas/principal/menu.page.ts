@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { EspecificoService } from 'src/app/services/especifico/especifico.service';
 import { HomeService } from 'src/app/services/home/home.service';
 
 @Component({
@@ -46,7 +47,8 @@ export class MenuPage implements OnInit {
     constructor(private route: ActivatedRoute,
         private router: Router,
         private serviciosGenerales: HomeService,
-        private toastController: ToastController) { }
+        private toastController: ToastController,
+        private serviciosEspecificos:EspecificoService) { }
 
     async presentToast(message: string, color: string = 'success') {
         const toast = await this.toastController.create({
@@ -88,13 +90,16 @@ export class MenuPage implements OnInit {
 
 
     irACarrito(producto: any) {
-        this.router.navigate(['/inicio/carrito'], {
-            queryParams: {
-                nombre: producto.nombre,
-                imagen: producto.imagen,
-                precio: producto.precio
-            }
-        });
+        const entidad = {restaurante:this.restauranteId,plato:producto.id,cliente:localStorage.getItem('id')}
+        this.serviciosEspecificos.agregarCarrito(entidad).subscribe(()=>{
+            this.router.navigate(['/inicio/carrito'], {
+                queryParams: {
+                    nombre: producto.nombre,
+                    imagen: producto.imagen,
+                    precio: producto.precio
+                }
+            });
+        })
     }
 
 }
