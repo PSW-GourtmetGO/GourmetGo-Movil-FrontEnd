@@ -19,7 +19,7 @@ export class ToolbarpagosComponent {
 
   irCarrito() {
 
-      this.router.navigate(['/inicio/carrito']);
+      this.router.navigate(['/inicio/carrito/']);
     
   }
 

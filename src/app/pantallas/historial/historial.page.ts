@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/services/home/home.service';
 import { ToastController } from '@ionic/angular';
+import { EspecificoService } from 'src/app/services/especifico/especifico.service';
 
 
 @Component({
@@ -10,7 +11,7 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./historial.page.scss'],
 })
 export class HistorialPage implements OnInit {
-  constructor(private router: Router,private serviciosGenerales:HomeService,private toastController: ToastController) {}
+  constructor(private router: Router,private serviciosGenerales:HomeService,private toastController: ToastController,private serviciosEspecificos:EspecificoService) {}
 
   restauranteText:string = ''
 
@@ -25,9 +26,9 @@ export class HistorialPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.serviciosGenerales.obtenerRestaurantes().subscribe(response => {
+    this.serviciosEspecificos.obtenerHistorial(localStorage.getItem('id')).subscribe(response => {
       if (response.success) {
-        this.restaurantes = response.restaurantes
+        this.restaurantes = response.result
       } else {
         this.presentToast('Hubo un problema con el servidor', 'danger');
       }
@@ -36,13 +37,7 @@ export class HistorialPage implements OnInit {
     });
   }
 
-  restaurantes = [
-    {
-      nombre: 'Pikos',
-      imagen: '../../../assets/imagenes/negocio.png',
-      precioTotal:'40',
-      cantidad: '2',
-    }
+  restaurantes:any = [
   ];
 
   getColorByEstado(estado: any): string {
@@ -56,5 +51,10 @@ export class HistorialPage implements OnInit {
       default:
         return "#eb459f";
     }
+  }
+
+  getImage(image: string): string {
+    const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/gourmetgo-firebase.appspot.com/o/Default%2FnoImagen.jpg?alt=media&token=3ee7f0de-f7f8-48b3-897f-cbb93a4b9872';
+    return image ? image : defaultImage;
   }
 }

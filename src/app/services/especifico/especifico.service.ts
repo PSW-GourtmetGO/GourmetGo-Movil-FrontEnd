@@ -23,4 +23,11 @@ export class EspecificoService {
   borrarCarrito(detalle:any): Observable<any> {
     return this.http.put(this.url + "/carritoDel",detalle)
   }
+
+  obtenerHistorial(entidad:any): Observable<any> {
+    return this.http.get(this.url + "/historial?cliente="+entidad)
+  }
+  obtenerEspecifico(entidad:any): Observable<any> {
+    return this.http.get(this.url + "/especifico?id="+entidad)
+  }
 }

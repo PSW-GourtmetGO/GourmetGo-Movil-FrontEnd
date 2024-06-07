@@ -98,8 +98,12 @@ export class CarritoPage implements OnInit {
     return `${dayName}, ${day} ${month} ${year}`;
   }
 
-  irAPago() {
-    this.router.navigate(['/inicio/pagos']);
+  irAPago(datos: any) {
+    this.router.navigate(['/inicio/pagos'], {
+      queryParams: {
+          dato: datos,
+      }
+    });
   }
 
   getImage(image: string): string {
