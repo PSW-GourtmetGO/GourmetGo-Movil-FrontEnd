@@ -2,23 +2,21 @@
 <ion-content>
     <div class="w-full h-full bg-[#D4D4D4] overflow-y-auto">
         <div class="grid grid-cols-2 gap-5 w-full h-auto p-4">
-            <ng-container *ngFor="let restaurante of restaurantes">
+            <ng-container>
                 <div class="w-full col-span-2">
                     <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%]">
                         <!-- Imagen -->
                         <div class="w-1/3 py-6 px-3">
-                            <img [src]="restaurante.imagen" alt="Restaurante"
+                            <img [src]="getImage(restaurantes.restauranteImagen)" alt="Restaurante"
                                 class="w-full h-full object-cover rounded-lg" />
                         </div>
                         <!-- Contenido -->
                         <div class="w-2/3 p-4 flex flex-col justify-center">
                             <h2 class="text-md font-bold text-gray-800">
-                                {{ restaurante.nombre }}
+                                {{ restaurantes.nombreRestaurante }}
                             </h2>
-                            <p class="text-gray-600 mt-2">{{ restaurante.direccion }}</p>
-                            <p class="text-black text-sm mt-2 text-center font-bold">
-                                {{ restaurante.horario }}
-                            </p>
+                            <p class="text-gray-600 mt-2">{{ restaurantes.direccion }}</p>
+
                         </div>
                     </div>
                 </div>
@@ -28,10 +26,10 @@
                 <div class="bg-white rounded-lg shadow-lg flex overflow-hidden h-[100%]">
                     <div class="w-full p-4 flex flex-col justify-center items-start">
                         <h2 class="text-md font-bold text-gray-800">
-                            Número de Pedido
+                            Código de Pedido
                         </h2>
                         <p class="text-black text-lg mt-2 text-center font-bold">
-                            {{ numeroPedido }}
+                            {{ restaurantes.codigo }}
                         </p>
                     </div>
                 </div>
@@ -44,7 +42,7 @@
                             Total a Pagar
                         </h2>
                         <p class="text-black text-lg mt-2 text-center font-bold">
-                            {{ totalPagar | currency }}
+                            {{ restaurantes.precio_total | currency }}
                         </p>
                     </div>
                 </div>

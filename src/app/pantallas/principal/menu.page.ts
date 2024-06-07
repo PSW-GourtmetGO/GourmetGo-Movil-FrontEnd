@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastController } from '@ionic/angular';
+import { EspecificoService } from 'src/app/services/especifico/especifico.service';
 import { HomeService } from 'src/app/services/home/home.service';
 
 @Component({
@@ -14,14 +15,6 @@ export class MenuPage implements OnInit {
     restauranteImagen: string = ''
     restauranteId: number = 0
     platoNombre: string = ''
-
-    platos = [
-        {
-            nombre: 'Papipollo',
-            imagen: '../../../assets/imagenes/bebida.png',
-            precio: '$2.50',
-        }
-    ]
 
     categorias = [
         {
@@ -41,20 +34,21 @@ export class MenuPage implements OnInit {
             nombre: 'Té Verde',
             imagen: '../../../assets/imagenes/bebida.png',
             precio: '$1.00',
-            idCategoria: 2
+            categoria_id: 2
         },
         {
             nombre: 'PapiPollo',
             imagen: '../../../assets/imagenes/bebida.png',
             precio: '$5.00',
-            idCategoria: 1
+            categoria_id: 1
         }
     ]
 
     constructor(private route: ActivatedRoute,
         private router: Router,
         private serviciosGenerales: HomeService,
-        private toastController: ToastController) { }
+        private toastController: ToastController,
+        private serviciosEspecificos:EspecificoService) { }
 
     async presentToast(message: string, color: string = 'success') {
         const toast = await this.toastController.create({
@@ -71,14 +65,20 @@ export class MenuPage implements OnInit {
             this.restauranteNombre = params['nombre'];
             this.restauranteImagen = params['imagen']
             this.restauranteId = params['id']
+            this.serviciosGenerales.obtenerCategoriasRestaurante(this.restauranteId).subscribe(data=>{
+                this.categorias = data.restaurantes
+                this.serviciosGenerales.obtenerPlatosRestaurante(this.restauranteId).subscribe(data=>{
+                    this.productos = data.restaurantes
+                })
+            })
         });
     }
 
     buscar(): void {
-        const entidad = { nombre: this.platoNombre }
-        this.serviciosGenerales.obtenerPlato(entidad).subscribe(response => {
+        const entidad = { plato: this.platoNombre,restaurante: this.restauranteId }
+        this.serviciosGenerales.obtenerPlatosRestauranteFiltro(entidad).subscribe(response => {
             if (response.success) {
-                this.platos = response.restaurantes
+                this.productos = response.restaurantes
             } else {
                 this.presentToast('Hubo un problema con el servidor', 'danger');
             }
@@ -90,13 +90,14 @@ export class MenuPage implements OnInit {
 
 
     irACarrito(producto: any) {
-        this.router.navigate(['/inicio/carrito'], {
-            queryParams: {
-                nombre: producto.nombre,
-                imagen: producto.imagen,
-                precio: producto.precio
-            }
-        });
+        const entidad = {restaurante:this.restauranteId,plato:producto.id,cliente:localStorage.getItem('id')}
+        this.serviciosEspecificos.agregarCarrito(entidad).subscribe(()=>{
+            this.router.navigate(['/inicio/carrito']);
+        })
     }
 
+    getImage(image: string): string {
+        const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/gourmetgo-firebase.appspot.com/o/Default%2FnoImagen.jpg?alt=media&token=3ee7f0de-f7f8-48b3-897f-cbb93a4b9872';
+        return image ? image : defaultImage;
+    }
 }

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HomeService } from 'src/app/services/home/home.service';
 import { ToastController } from '@ionic/angular';
+import { EspecificoService } from 'src/app/services/especifico/especifico.service';
 
 @Component({
   selector: 'app-carrito',
@@ -16,28 +17,15 @@ export class CarritoPage implements OnInit {
   currentDate: string = '';
   productosSeleccionados: any[] = [];
 
-  restaurantes = [
-    {
-      nombre: 'MEDIA NOCHE RESTAURANT',
-      direccion: 'Ambato, ciudadela presidencial',
-      imagen: '../../../assets/imagenes/negocio.png',
-      horario: 'Lunes a Domingo 8:00 - 22:00',
-    }
-  ];
-
-  pedidos = [
-    {
-      nombre: 'GuatiPollo',
-      hora: '10:00',
-      precio: '$40',
-      items: '2'
-    }
-  ]
+  restaurantes:any = [];
 
   constructor(private route: ActivatedRoute,
     private router: Router,
     private serviciosGenerales: HomeService,
-    private toastController: ToastController) { }
+    private toastController: ToastController,
+  private serviciosEspecificos:EspecificoService) { 
+    this.cargarCarrito()
+  }
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
@@ -50,31 +38,14 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe(params => {
-      const nuevoProducto = {
-        nombre: params['nombre'],
-        imagen: params['imagen'],
-        precio: params['precio'],
-        cantidad: 1
-      };
-      this.agregarProducto(nuevoProducto);
-    });
 
-    this.currentDate = this.formatDate(new Date());
+  }
 
-    this.serviciosGenerales.obtenerPedido().subscribe(response => {
+  cargarCarrito(){
+    this.serviciosEspecificos.obtenerCarrito(localStorage.getItem('id')).subscribe(response => {
       if (response.success) {
-        this.pedidos = response.pedidos
-      } else {
-        this.presentToast('Hubo un problema con el servidor', 'danger');
-      }
-    }, error => {
-      this.presentToast('Hubo un problema con el servidor', 'danger');
-    });
-
-    this.serviciosGenerales.obtenerRestaurantes().subscribe(response => {
-      if (response.success) {
-        this.restaurantes = response.restaurantes
+        this.restaurantes = response.result
+        console.log(this.restaurantes)
       } else {
         this.presentToast('Hubo un problema con el servidor', 'danger');
       }
@@ -92,18 +63,27 @@ export class CarritoPage implements OnInit {
     }
   }
 
-  incrementarCantidad(index: number) {
-    this.productosSeleccionados[index].cantidad++;
+  incrementarCantidad(detalle: any) {
+    detalle.cantidad = detalle.cantidad+1
+    this.serviciosEspecificos.actualizarCarrito(detalle).subscribe(()=>{
+      this.cargarCarrito
+    })
   }
 
-  disminuirCantidad(index: number) {
-    if (this.productosSeleccionados[index].cantidad > 1) {
-      this.productosSeleccionados[index].cantidad--;
+  disminuirCantidad(detalle: any) {
+    console.log(detalle)
+    if (detalle.cantidad > 1) {
+      detalle.cantidad = detalle.cantidad-1
+      this.serviciosEspecificos.actualizarCarrito(detalle).subscribe(()=>{
+        this.cargarCarrito()
+      })
     }
   }
 
-  eliminarProducto(index: number) {
-    this.productosSeleccionados.splice(index, 1);
+  eliminarProducto(detalle: any) {
+    this.serviciosEspecificos.borrarCarrito(detalle).subscribe(()=>{
+      this.cargarCarrito()
+    })
   }
 
   formatDate(date: Date): string {
@@ -118,7 +98,17 @@ export class CarritoPage implements OnInit {
     return `${dayName}, ${day} ${month} ${year}`;
   }
 
-  irAPago() {
-    this.router.navigate(['/inicio/pagos']);
-}
+  irAPago(datos: any) {
+    this.router.navigate(['/inicio/pagos'], {
+      queryParams: {
+          dato: datos,
+      }
+    });
+  }
+
+  getImage(image: string): string {
+    const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/gourmetgo-firebase.appspot.com/o/Default%2FnoImagen.jpg?alt=media&token=3ee7f0de-f7f8-48b3-897f-cbb93a4b9872';
+    return image ? image : defaultImage;
+  }
+  
 }

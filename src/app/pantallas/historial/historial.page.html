@@ -8,18 +8,18 @@
                         <!-- Estado Cuenta y Fecha -->
                         <div class="flex items-center justify-between px-4 py-2">
                             <label class="text-sm font-bold text-[#00af66]">Estado Compra</label>
-                            <label [style.backgroundColor]="getColorByEstado('Pendiente')"
-                                class="text-sm text-black font-bold py-2 px-3 rounded-lg">Pendiente</label>
+                            <label [style.backgroundColor]="getColorByEstado(restaurante.estado)"
+                                class="text-sm text-black font-bold py-2 px-3 rounded-lg">{{restaurante.estado}}</label>
                         </div>
 
                         <!-- Imagen y Contenido -->
                         <div class="w-full flex py-6 px-3">
-                            <img [src]="restaurante.imagen" alt="Restaurante"
+                            <img [src]="getImage(restaurante.restauranteImagen)" alt="Restaurante"
                                 class="w-1/3 h-full object-cover rounded-lg" />
                             <!-- Contenido -->
                             <div class="w-2/3 p-4 flex flex-col justify-center">
                                 <h2 class="text-md font-bold text-gray-800">
-                                    {{ restaurante.nombre }}
+                                    {{ restaurante.nombreRestaurante }}
                                 </h2>
                                 <p class="text-gray-600 mt-2">$ {{ restaurante.precioTotal }}</p>
                                 <p class="text-black text-sm mt-2font-bold">

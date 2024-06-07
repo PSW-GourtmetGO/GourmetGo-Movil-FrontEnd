@@ -23,4 +23,16 @@ export class HomeService {
   obtenerPlato(entidad: any): Observable<any> {
     return this.http.post(this.url + "/plato", entidad)
   }
+
+  obtenerPlatosRestaurante(entidad:any):Observable<any>{
+    return this.http.get(this.url + '/platos?restaurante='+entidad)
+  }
+
+  obtenerPlatosRestauranteFiltro(entidad:any):Observable<any>{
+    return this.http.post(this.url + '/platos',entidad)
+  }
+
+  obtenerCategoriasRestaurante(entidad:any):Observable<any>{
+    return this.http.get(this.url + '/categorias?restaurante='+entidad)
+  }
 }
