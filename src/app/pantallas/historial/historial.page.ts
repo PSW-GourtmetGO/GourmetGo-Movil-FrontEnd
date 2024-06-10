@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { HomeService } from 'src/app/services/home/home.service';
-import { ToastController } from '@ionic/angular';
+import { ModalController, ToastController } from '@ionic/angular';
 import { EspecificoService } from 'src/app/services/especifico/especifico.service';
-
+import { ModalCodigoComponent } from '../../shared/modal-codigo/modal-codigo.component';
 
 @Component({
   selector: 'app-historial',
@@ -11,9 +11,13 @@ import { EspecificoService } from 'src/app/services/especifico/especifico.servic
   styleUrls: ['./historial.page.scss'],
 })
 export class HistorialPage implements OnInit {
-  constructor(private router: Router,private serviciosGenerales:HomeService,private toastController: ToastController,private serviciosEspecificos:EspecificoService) {}
+  constructor(private router: Router,
+    private serviciosGenerales: HomeService,
+    private toastController: ToastController,
+    private serviciosEspecificos: EspecificoService,
+    private modalController: ModalController) { }
 
-  restauranteText:string = ''
+  restauranteText: string = ''
 
   async presentToast(message: string, color: string = 'success') {
     const toast = await this.toastController.create({
@@ -29,6 +33,7 @@ export class HistorialPage implements OnInit {
     this.serviciosEspecificos.obtenerHistorial(localStorage.getItem('id')).subscribe(response => {
       if (response.success) {
         this.restaurantes = response.result
+        console.log(this.restaurantes)
       } else {
         this.presentToast('Hubo un problema con el servidor', 'danger');
       }
@@ -37,7 +42,7 @@ export class HistorialPage implements OnInit {
     });
   }
 
-  restaurantes:any = [
+  restaurantes: any = [
   ];
 
   getColorByEstado(estado: any): string {
@@ -57,4 +62,25 @@ export class HistorialPage implements OnInit {
     const defaultImage = 'https://firebasestorage.googleapis.com/v0/b/gourmetgo-firebase.appspot.com/o/Default%2FnoImagen.jpg?alt=media&token=3ee7f0de-f7f8-48b3-897f-cbb93a4b9872';
     return image ? image : defaultImage;
   }
+
+  mostrarModalCodigo: boolean = false;
+  mostrarModalCarrito: boolean = false;
+  codigoRestaurante: string = '';
+  detalleRestaurante: any = [];
+
+  abrirModalCodigo(codigo: string) {
+    this.codigoRestaurante = codigo;
+    this.mostrarModalCodigo = true;
+  }
+
+  abrirModalCarrito(codigo: any) {
+    this.detalleRestaurante = codigo;
+    this.mostrarModalCarrito = true;
+  }
+
+  cerrarModalCodigo() {
+    this.mostrarModalCodigo = false;
+    this.mostrarModalCarrito = false;
+  }
+
 }

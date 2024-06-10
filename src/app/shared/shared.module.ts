@@ -6,9 +6,10 @@ import { RouterModule } from '@angular/router';
 import { ToolbarComponent } from './componentes/toolbar/toolbar.component';
 import { ToolbarpagosComponent } from './componentes/toolbarpagos/toolbarpagos.component';
 import { ToolbarmenuComponent } from './componentes/toolbarmenu/toolbarmenu.component';
+import { ModalCodigoComponent } from './modal-codigo/modal-codigo.component';
 
 @NgModule({
-  declarations: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent],
+  declarations: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent, ModalCodigoComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
@@ -16,6 +17,6 @@ import { ToolbarmenuComponent } from './componentes/toolbarmenu/toolbarmenu.comp
     IonicModule,
     RouterModule,
   ],
-  exports: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent],
+  exports: [ToolbarComponent, ToolbarpagosComponent, ToolbarmenuComponent, ModalCodigoComponent],
 })
 export class SharedModule {}
