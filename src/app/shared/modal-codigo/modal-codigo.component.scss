@@ -1,0 +1,5 @@
+
+ion-content {
+    max-height: calc(100vh - 60px);
+    /* Resta el alto del ion-header al 100% del alto de la ventana gráfica */
+}

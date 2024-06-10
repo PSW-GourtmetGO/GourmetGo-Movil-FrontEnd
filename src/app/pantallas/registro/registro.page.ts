@@ -13,7 +13,7 @@ export class RegistroPage implements OnInit {
   cedulaText: string = '';
   nombreText: string = '';
   apellidoText: string = '';
-  fecha_nacimientoText: Date | null = null;
+  fecha_nacimientoText: string = '';
   direccionText: string = '';
   telefonoText: string = '';
   correoText: string = '';
