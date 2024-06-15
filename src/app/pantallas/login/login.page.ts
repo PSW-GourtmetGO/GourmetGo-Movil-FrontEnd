@@ -9,19 +9,21 @@ import { ToastController } from '@ionic/angular';
   styleUrls: ['./login.page.scss'],
 })
 export class LoginPage {
-
   correoText: string = '';
   contraseniaText: string = '';
-  
-  constructor(private router: Router,private serviciosIniciales:PrincipalService,private toastController: ToastController) {}
-  
-  ngOnInit(): void {}
+  passwordFieldType: string = 'password';
+
+  constructor(
+    private router: Router,
+    private serviciosIniciales: PrincipalService,
+    private toastController: ToastController
+  ) {}
 
   olvidoClave() {
     this.router.navigate(['/olvido-clave']);
   }
-  registrar(){
-    this.router.navigate(['/registro'])
+  registrar() {
+    this.router.navigate(['/registro']);
   }
 
   async presentToast(message: string, color: string = 'success') {
@@ -29,27 +31,35 @@ export class LoginPage {
       message: message,
       duration: 2000,
       position: 'bottom',
-      color: color
+      color: color,
     });
     toast.present();
+  }
+  // Alterna la visibilidad de la contraseña
+  togglePasswordVisibility() {
+    this.passwordFieldType =
+      this.passwordFieldType === 'password' ? 'text' : 'password';
   }
 
   onSubmit() {
     const cliente = {
       correo: this.correoText,
-      contrasenia: this.contraseniaText
+      contrasenia: this.contraseniaText,
     };
 
-    this.serviciosIniciales.login(cliente).subscribe(response => {
-      if (response.success) {
-        this.presentToast('Bienvenido');
-        localStorage.setItem('id', response.clienteData.id);
-        this.router.navigate(['/inicio']);
-      } else {
+    this.serviciosIniciales.login(cliente).subscribe(
+      (response) => {
+        if (response.success) {
+          this.presentToast('Bienvenido');
+          localStorage.setItem('id', response.clienteData.id);
+          this.router.navigate(['/inicio']);
+        } else {
+          this.presentToast('Credenciales incorrectas', 'danger');
+        }
+      },
+      (error) => {
         this.presentToast('Credenciales incorrectas', 'danger');
       }
-    }, error => {
-      this.presentToast('Credenciales incorrectas', 'danger');
-    });
+    );
   }
 }
