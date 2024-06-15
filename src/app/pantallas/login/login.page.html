@@ -55,7 +55,7 @@
               <!-- CONTRASEÑA -->
               <div class="mt-4 relative">
                 <input
-                  type="password"
+                  [type]="passwordFieldType"
                   placeholder="Contraseña"
                   class="w-full border rounded-md px-3 py-2 pr-10"
                   [(ngModel)]="contraseniaText" name = "contraseniaText"
@@ -71,6 +71,8 @@
                     stroke-width="1"
                     stroke-linecap="round"
                     stroke-linejoin="round"
+                    (click)="togglePasswordVisibility()"
+                    class="cursor-pointer"
                   >
                     <path
                       d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"
