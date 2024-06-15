@@ -16,7 +16,6 @@
                                 {{ restaurantes.nombreRestaurante }}
                             </h2>
                             <p class="text-gray-600 mt-2">{{ restaurantes.direccion }}</p>
-
                         </div>
                     </div>
                 </div>
@@ -50,7 +49,8 @@
         </div>
         <div class="w-full p-4 flex justify-center">
             <button
-                class="mt-4 bg-[#00af66] text-white font-semibold px-6 py-3 rounded-lg flex items-center space-x-2 shadow-lg hover:bg-[#008f56] focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105">
+                class="mt-4 bg-[#00af66] text-white font-semibold px-6 py-3 rounded-lg flex items-center space-x-2 shadow-lg hover:bg-[#008f56] focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-opacity-75 transition duration-300 ease-in-out transform hover:scale-105"
+                (click)="payWithPayPal()">
                 <ion-icon name="logo-paypal"></ion-icon>
                 <span>PayPal</span>
             </button>
