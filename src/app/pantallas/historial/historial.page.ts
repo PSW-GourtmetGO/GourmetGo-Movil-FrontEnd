@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router'; // Importa ActivatedRoute
 import { HomeService } from 'src/app/services/home/home.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { EspecificoService } from 'src/app/services/especifico/especifico.service';
@@ -11,11 +11,14 @@ import { ModalCodigoComponent } from '../../shared/modal-codigo/modal-codigo.com
   styleUrls: ['./historial.page.scss'],
 })
 export class HistorialPage implements OnInit {
-  constructor(private router: Router,
+  constructor(
+    private router: Router,
     private serviciosGenerales: HomeService,
     private toastController: ToastController,
     private serviciosEspecificos: EspecificoService,
-    private modalController: ModalController) { }
+    private modalController: ModalController,
+    private activatedRoute: ActivatedRoute // Inyecta ActivatedRoute
+  ) { }
 
   restauranteText: string = ''
 
@@ -30,10 +33,18 @@ export class HistorialPage implements OnInit {
   }
 
   ngOnInit(): void {
+    // Verifica si hay un parámetro "pedido" en la URL
+    this.activatedRoute.queryParams.subscribe(params => {
+      if (params['pedido'] === 'exito') {
+        this.presentToast('Se realizó el pedido', 'success');
+      }
+    });
+
+    // Obtén el historial
     this.serviciosEspecificos.obtenerHistorial(localStorage.getItem('id')).subscribe(response => {
       if (response.success) {
-        this.restaurantes = response.result
-        console.log(this.restaurantes)
+        this.restaurantes = response.result;
+        console.log(this.restaurantes);
       } else {
         this.presentToast('Hubo un problema con el servidor', 'danger');
       }
@@ -42,8 +53,7 @@ export class HistorialPage implements OnInit {
     });
   }
 
-  restaurantes: any = [
-  ];
+  restaurantes: any = [];
 
   getColorByEstado(estado: any): string {
     switch (estado) {
@@ -82,5 +92,4 @@ export class HistorialPage implements OnInit {
     this.mostrarModalCodigo = false;
     this.mostrarModalCarrito = false;
   }
-
 }

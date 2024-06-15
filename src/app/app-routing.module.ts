@@ -47,7 +47,8 @@ const routes: Routes = [
   {
     path: 'historial',
     loadChildren: () => import('./pantallas/historial/historial.module').then( m => m.HistorialPageModule)
-  },  {
+  },
+  {
     path: 'pagos',
     loadChildren: () => import('./pantallas/pagos/pagos.module').then( m => m.PagosPageModule)
   }
