@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'; // Importa ActivatedRoute
+import { Router, ActivatedRoute } from '@angular/router';
 import { HomeService } from 'src/app/services/home/home.service';
 import { ModalController, ToastController } from '@ionic/angular';
 import { EspecificoService } from 'src/app/services/especifico/especifico.service';
@@ -17,7 +17,7 @@ export class HistorialPage implements OnInit {
     private toastController: ToastController,
     private serviciosEspecificos: EspecificoService,
     private modalController: ModalController,
-    private activatedRoute: ActivatedRoute // Inyecta ActivatedRoute
+    private activatedRoute: ActivatedRoute
   ) { }
 
   restauranteText: string = ''
