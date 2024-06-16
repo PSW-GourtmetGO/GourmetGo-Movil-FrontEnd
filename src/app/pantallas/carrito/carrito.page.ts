@@ -16,7 +16,7 @@ export class CarritoPage implements OnInit {
   restauranteText: string = '';
   currentDate: string = '';
   productosSeleccionados: any[] = [];
-
+  carritoInterval: any; 
   restaurantes:any = [];
 
   constructor(private route: ActivatedRoute,
@@ -38,7 +38,10 @@ export class CarritoPage implements OnInit {
   }
 
   ngOnInit(): void {
-
+    this.cargarCarrito();
+    this.carritoInterval = setInterval(() => {
+      this.cargarCarrito();
+    }, 10);
   }
 
   cargarCarrito(){
